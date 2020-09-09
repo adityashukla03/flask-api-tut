@@ -1,5 +1,6 @@
 from datetime import datetime
 from config import db, ma
+from marshmallow import fields
 
 class Person(db.Model):
     __tablename__ = 'person'
@@ -29,3 +30,28 @@ class PersonSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Person
         load_instance = True
+    notes = fields.Nested('PersonNoteSchema', default=[], many=True)
+
+class PersonNoteSchema(ma.SQLAlchemyAutoSchema):
+    """
+    This class exists to get around a recursion issue
+    """
+    note_id = fields.Int()
+    person_id = fields.Int()
+    content = fields.Str()
+    timestamp = fields.Str()
+
+class NoteSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Note
+        load_instance = True
+    person = fields.Nested('NotePersonSchema', default=None)
+
+class NotePersonSchema(ma.SQLAlchemyAutoSchema):
+    """
+    This class exists to get around a recursion issue
+    """
+    person_id = fields.Int()
+    lname = fields.Str()
+    fname = fields.Str()
+    timestamp = fields.Str()
