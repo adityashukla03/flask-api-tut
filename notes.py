@@ -1,3 +1,4 @@
+from models import Person, Note, NoteSchema
 def read_one(person_id, note_id):
     """
     This function responds to a request for
@@ -19,7 +20,7 @@ def read_one(person_id, note_id):
     # Was a note found?
     if note is not None:
         note_schema = NoteSchema()
-        data = note_schema.dump(note).data
+        data = note_schema.dump(note)
         return data
 
     # Otherwise, nope, didn't find that note
