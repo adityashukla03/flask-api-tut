@@ -45,7 +45,7 @@ class NoteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Note
         load_instance = True
-    person = fields.Nested('NotePersonSchema', default=None)
+    person = fields.Nested('PersonSchema', default=None)
 
 class NotePersonSchema(ma.SQLAlchemyAutoSchema):
     """

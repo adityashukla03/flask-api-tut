@@ -13,7 +13,7 @@ def read_all():
 
     # Serialize the list of notes from our data
     note_schema = NoteSchema(many=True, exclude=["person.notes"])
-    data = note_schema.dump(notes).data
+    data = note_schema.dump(notes)
     return data
     pass
 
